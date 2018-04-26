@@ -1,0 +1,71 @@
+<mvc:View xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
+	xmlns:lab="openui5.camera" xmlns:core="sap.ui.core" xmlns="sap.m" controllerName="Camera.controller.Home" xmlns:u="sap.ui.unified"
+	displayBlock="true">
+	<App>
+		<pages>
+			<Page title="{i18n>appTitle}" class="sapUiSizeCompact">
+				<content>
+					<!--<ObjectHeader title="Camera control demo" backgroundDesign="Solid" number="{/photos/length}" numberUnit="photos"/>-->
+					<!--<IconTabBar expanded="{device>/isNoPhone}" select="onTabSelect">-->
+					<!--<items>-->
+					<!--<IconTabFilter text="Demo" key="demo">-->
+					<Panel headerText="Preview">
+						<lab:Camera id="idCamera" width="200" height="150" snapshot=".onSnapshot" singleShotMode="true"/>
+					</Panel>
+					<!--<List headerText="Photos" items="{ path: '/photos' }" noDataText="{i18n>nophotos}">
+							<CustomListItem>
+								<Image src="{src}" densityAware="false" height="100px"></Image>
+							</CustomListItem>
+						</List>-->
+					<Panel headerText="Image taken">
+						<VBox width="30%"/>
+						<VBox alignItems="Center">
+							<Image id="imageid" width="200px"/>
+						</VBox>
+						<VBox width="30%"/>
+					</Panel>
+					<Panel headerText="File Upload">
+						<VBox width="30%"/>
+						<VBox alignItems="Center">
+							<u:FileUploader id="fileUploader" name="myFileUpload" uploadOnChange="false" useMultipart="false"
+								tooltip="Upload your file to the local server" uploadComplete="handleUploadComplete"/>
+							<Button text="Upload File" press="handleUploadPress"/>
+						</VBox>
+						<VBox width="30%"/>
+					</Panel>
+					<!--<l:DynamicSideContent class="sapUiDSCExplored sapUiContentPadding" sideContentFallDown="BelowM" containerQuery="true" showSideContent="true">
+									<l:mainContent>
+										<lab:Camera id="idCamera" width="200" height="150" snapshot=".onSnapshot" singleShotMode="false"/>
+									</l:mainContent>
+									<l:sideContent>
+										<List headerText="Photos" growing="false" items="{ path: '/photos' }" noDataText="{i18n>nophotos}">
+											<CustomListItem>
+												<Image src="{src}" densityAware="false" height="100px"></Image>
+											</CustomListItem>
+										</List>
+									</l:sideContent>
+								</l:DynamicSideContent>-->
+					<!--</IconTabFilter>
+							<IconTabFilter text="About &amp; Usage" key="info">
+								<Panel headerText="{i18n>title.about}" width="auto" class="sapUiResponsiveMargin">
+									<Text text="{i18n>about}"/>
+									<FormattedText target="_blank" htmlText="{i18n>usage}"/>
+								</Panel>
+								<Panel headerText="{i18n>title.author}" width="auto" class="sapUiResponsiveMargin">
+									<Link target="_blank" href="https://twitter.com/tiagobalmeida" text="Tiago Almeida - @tiagobalmeida"/>
+								</Panel>
+							</IconTabFilter>
+						</items>
+					</IconTabBar>-->
+				</content>
+				<footer>
+					<Toolbar id="toolbarid" visible="false">
+						<ToolbarSpacer/>
+						<Button text="Send by Email" type="Emphasized" press="save"/>
+						<Button text="Cancel" type="Emphasized" press="reset"/>
+					</Toolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
