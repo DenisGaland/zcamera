@@ -9,6 +9,7 @@ sap.ui.define([
 	return Controller.extend("Camera.controller.Home", {
 
 		onInit: function() {
+
 			this.getView().setModel(new JSONModel({
 				photos: []
 			}));
