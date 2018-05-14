@@ -2,8 +2,9 @@ sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/odata/ODataModel",
+	"sap/m/MessageBox",
 	"sap/m/MessageToast"
-], function(Controller, JSONModel, ODataModel, MessageToast) {
+], function(Controller, JSONModel, ODataModel, MessageBox, MessageToast) {
 	"use strict";
 
 	return Controller.extend("Camera.controller.Home", {
@@ -40,26 +41,8 @@ sap.ui.define([
 			});
 			oModel.setProperty("/photos", aPhotos);
 			this.getView().byId("imageid").setSrc(oEvent.getParameter("image"));
-			var o = oEvent.getParameter("image").split(";");
-			var binary = o[1].split(",")[1];
-			//var file = new File(oEvent.getParameter("image"), "filename")
-			//var sPath = "/UserSet('denisgaland@gmail.com')/Photo";
-			var test = {
-				"Content": binary
-			};
-			var config = this.getOwnerComponent().getManifest();
-			var sServiceUrl = config["sap.app"].dataSources.ZUSERPHOTO_SRV.uri;
-			var oData = new ODataModel(sServiceUrl, true);
-			var sPath = "/PhotosSet";
-			oData.create(sPath, binary);
 			this.getView().byId("toolbarid").setVisible(true);
-			/*var f = this.getView().byId("fileUploader");
-			var blob = new Blob(binary, {
-				type: 'image/jpeg'
-			});
-			blob.lastModifiedDate = new Date();
-			blob.name = "image.jpg";*/
-			oModel.refresh(true);
+			this.getView().byId("preview").setVisible(true);
 		},
 
 		/**
@@ -80,6 +63,35 @@ sap.ui.define([
 		reset: function() {
 			this.getView().byId("imageid").setSrc("");
 			this.getView().byId("toolbarid").setVisible(false);
+			this.getView().byId("preview").setVisible(false);
+		},
+
+		save: function() {
+			var oController = this;
+			var oView = this.getView();
+			MessageBox.show("Are you sure you want to send this image?", {
+				actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+				onClose: function(oAction) {
+					debugger;
+					if (oAction === "YES") {
+						var o = oView.byId("imageid").getSrc().split(";");
+						var binary = o[1].split(",")[1];
+						var config = oController.getOwnerComponent().getManifest();
+						var sServiceUrl = config["sap.app"].dataSources.ZUSERPHOTO_SRV.uri;
+						var oData = new ODataModel(sServiceUrl, true);
+						var sPath = "/PhotosSet";
+						oData.create(sPath, binary);
+						oView.byId("toolbarid").setVisible(false);
+						oView.byId("preview").setVisible(false);
+						MessageToast.show("Email Sent", {
+							my: "center top",
+							at: "center top"
+						});
+					}
+				}
+			});
+
+			//oModel.refresh(true);
 		},
 
 		/*save: function() {
