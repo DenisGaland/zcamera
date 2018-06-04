@@ -84,8 +84,8 @@ sap.ui.define([
 						oView.byId("toolbarid").setVisible(false);
 						oView.byId("preview").setVisible(false);
 						MessageToast.show("Email Sent", {
-							my: "center top",
-							at: "center top"
+							my: "CenterCenter",
+							at: "CenterCenter"
 						});
 					}
 				}

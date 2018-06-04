@@ -106,7 +106,7 @@
 			]
 		},
 		"resourceRoots": {
-			"openui5.camera": "./model/openui5/camera/"
+			"openui5.camera": "./openui5/camera/"
 		}
 	},
 	"sap.platform.abap": {
